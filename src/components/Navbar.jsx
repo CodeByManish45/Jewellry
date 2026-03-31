@@ -17,10 +17,10 @@ export const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed w-full bg-white/95 backdrop-blur-md z-50 shadow-sm transition-all duration-300">
+    <nav className="fixed w-full bg-transparent backdrop-blur-md z-50 shadow-sm transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          
+
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full border border-gold-500 bg-gold-50 flex items-center justify-center">
@@ -32,10 +32,10 @@ export const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex flex-1 justify-center space-x-10">
             {navLinks.map((link) => (
-              <NavLink 
-                key={link.name} 
+              <NavLink
+                key={link.name}
                 to={link.path}
-                className={({ isActive }) => 
+                className={({ isActive }) =>
                   `text-sm tracking-widest uppercase transition-colors duration-200 hover:text-gold-500 ${isActive ? 'text-gold-500 font-medium' : 'text-slate-600'}`
                 }
               >
@@ -60,7 +60,7 @@ export const Navbar = () => {
                 </span>
               )}
             </Link>
-            
+
             {/* Mobile Menu Button */}
             <button className="md:hidden text-slate-600 focus:outline-none" onClick={toggleMenu}>
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -74,11 +74,11 @@ export const Navbar = () => {
         <div className="md:hidden bg-white border-t border-beige-200 shadow-lg">
           <div className="px-4 py-4 space-y-4 flex flex-col">
             {navLinks.map((link) => (
-              <NavLink 
-                key={link.name} 
+              <NavLink
+                key={link.name}
                 to={link.path}
                 onClick={toggleMenu}
-                className={({ isActive }) => 
+                className={({ isActive }) =>
                   `text-sm tracking-widest uppercase py-2 transition-colors ${isActive ? 'text-gold-500 font-medium' : 'text-slate-600'}`
                 }
               >
