@@ -13,9 +13,12 @@ export const Home = () => {
       {/* Hero Section */}
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1599643478514-4a4e0f69a509?auto=format&fit=crop&q=80&w=2000" 
-            alt="Luxury Jewelry Banner" 
+          <video 
+            src="/GOLD.mp4" 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-slate-900/40"></div>
