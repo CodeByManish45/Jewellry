@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { categories } from '../data/products';
 import { useProducts } from '../context/ProductContext';
 import { ProductCard } from '../components/ProductCard';
 import { SlidersHorizontal } from 'lucide-react';
 
 export const Products = () => {
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get('q') || '';
   const { products } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [sortOrder, setSortOrder] = useState('featured');
@@ -25,7 +28,13 @@ export const Products = () => {
     if (priceRange === '100k-500k') matchPrice = price >= 100000 && price <= 500000;
     if (priceRange === 'above-500k') matchPrice = price > 500000;
 
-    return matchCat && matchPrice;
+    let matchSearch = true;
+    if (searchQuery) {
+      matchSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                    (p.description && p.description.toLowerCase().includes(searchQuery.toLowerCase()));
+    }
+
+    return matchCat && matchPrice && matchSearch;
   });
 
   // Sort Logic
@@ -41,7 +50,9 @@ export const Products = () => {
         
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-serif text-slate-900 tracking-widest uppercase mb-4">All Collections</h1>
+          <h1 className="text-4xl font-serif text-slate-900 tracking-widest uppercase mb-4">
+            {searchQuery ? `Search Results for "${searchQuery}"` : 'All Collections'}
+          </h1>
           <div className="w-16 h-0.5 bg-gold-500 mx-auto"></div>
         </div>
 

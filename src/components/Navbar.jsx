@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { ShoppingBag, User, Search, Menu, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useState } from 'react';
@@ -6,8 +6,20 @@ import { useState } from 'react';
 export const Navbar = () => {
   const { cartCount } = useCart();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/products?q=${encodeURIComponent(searchQuery)}`);
+      setIsSearchOpen(false);
+      setSearchQuery('');
+    }
+  };
 
   const navLinks = [
     { name: 'Men', path: '/men' },
@@ -45,10 +57,27 @@ export const Navbar = () => {
           </div>
 
           {/* Icons */}
-          <div className="flex items-center space-x-6">
-            <button className="text-slate-600 hover:text-gold-500 transition-colors">
-              <Search className="w-5 h-5" />
-            </button>
+          <div className="flex items-center space-x-6 relative">
+            <div className="relative flex items-center">
+              {isSearchOpen && (
+                <form onSubmit={handleSearch} className="absolute right-8 top-1/2 -translate-y-1/2 w-48 sm:w-64">
+                  <input
+                    type="text"
+                    placeholder="Search products..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    autoFocus
+                    className="w-full bg-white border border-beige-300 px-4 py-1.5 text-sm focus:outline-none focus:border-gold-500 rounded-full shadow-md transition-all"
+                  />
+                </form>
+              )}
+              <button 
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                className="text-slate-600 hover:text-gold-500 transition-colors relative z-10 p-1 rounded-full"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+            </div>
             <Link to="/login" className="text-slate-600 hover:text-gold-500 transition-colors hidden sm:block">
               <User className="w-5 h-5" />
             </Link>
