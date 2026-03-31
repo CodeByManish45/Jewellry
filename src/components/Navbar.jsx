@@ -1,0 +1,96 @@
+import { Link, NavLink } from 'react-router-dom';
+import { ShoppingBag, User, Search, Menu, X } from 'lucide-react';
+import { useCart } from '../context/CartContext';
+import { useState } from 'react';
+
+export const Navbar = () => {
+  const { cartCount } = useCart();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const navLinks = [
+    { name: 'Men', path: '/men' },
+    { name: 'Women', path: '/women' },
+    { name: 'Wedding', path: '/wedding' },
+    { name: 'Collections', path: '/products' },
+  ];
+
+  return (
+    <nav className="fixed w-full bg-white/95 backdrop-blur-md z-50 shadow-sm transition-all duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
+          
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full border border-gold-500 bg-gold-50 flex items-center justify-center">
+              <span className="text-gold-600 font-serif font-bold text-xl leading-none">A</span>
+            </div>
+            <span className="font-serif text-2xl tracking-widest text-slate-900 uppercase">Aura</span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex flex-1 justify-center space-x-10">
+            {navLinks.map((link) => (
+              <NavLink 
+                key={link.name} 
+                to={link.path}
+                className={({ isActive }) => 
+                  `text-sm tracking-widest uppercase transition-colors duration-200 hover:text-gold-500 ${isActive ? 'text-gold-500 font-medium' : 'text-slate-600'}`
+                }
+              >
+                {link.name}
+              </NavLink>
+            ))}
+          </div>
+
+          {/* Icons */}
+          <div className="flex items-center space-x-6">
+            <button className="text-slate-600 hover:text-gold-500 transition-colors">
+              <Search className="w-5 h-5" />
+            </button>
+            <Link to="/login" className="text-slate-600 hover:text-gold-500 transition-colors hidden sm:block">
+              <User className="w-5 h-5" />
+            </Link>
+            <Link to="/cart" className="text-slate-600 hover:text-gold-500 transition-colors relative">
+              <ShoppingBag className="w-5 h-5" />
+              {cartCount > 0 && (
+                <span className="absolute -top-1.5 -right-2 bg-gold-500 text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+            
+            {/* Mobile Menu Button */}
+            <button className="md:hidden text-slate-600 focus:outline-none" onClick={toggleMenu}>
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Navigation */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-white border-t border-beige-200 shadow-lg">
+          <div className="px-4 py-4 space-y-4 flex flex-col">
+            {navLinks.map((link) => (
+              <NavLink 
+                key={link.name} 
+                to={link.path}
+                onClick={toggleMenu}
+                className={({ isActive }) => 
+                  `text-sm tracking-widest uppercase py-2 transition-colors ${isActive ? 'text-gold-500 font-medium' : 'text-slate-600'}`
+                }
+              >
+                {link.name}
+              </NavLink>
+            ))}
+            <Link to="/login" onClick={toggleMenu} className="text-sm tracking-widest uppercase text-slate-600 py-2 sm:hidden border-t mt-2 pt-4">
+              Sign In / Admin
+            </Link>
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+};
