@@ -15,9 +15,17 @@ export const Navbar = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/products?q=${encodeURIComponent(searchQuery)}`);
+      navigate(`/products?q=${encodeURIComponent(searchQuery.trim())}`);
       setIsSearchOpen(false);
       setSearchQuery('');
+    }
+  };
+
+  const handleSearchClick = () => {
+    if (isSearchOpen && searchQuery.trim()) {
+      handleSearch({ preventDefault: () => {} });
+    } else {
+      setIsSearchOpen(!isSearchOpen);
     }
   };
 
@@ -79,8 +87,9 @@ export const Navbar = () => {
                 </form>
               )}
               <button 
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                onClick={handleSearchClick}
                 className="text-slate-600 hover:text-gold-500 transition-colors relative z-10 p-1 rounded-full"
+                type="button"
               >
                 <Search className="w-5 h-5" />
               </button>
