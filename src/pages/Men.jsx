@@ -134,15 +134,9 @@ export const Men = () => {
     <div className="bg-background text-on-surface font-body overflow-x-hidden selection:bg-primary/30 min-h-screen">
       {/* Hero Section */}
       <section className="relative h-[530px] md:h-[707px] flex items-center overflow-hidden bg-surface-container-lowest">
-        <div className="absolute inset-0 z-0">
-          <img 
-            alt="Hero Image" 
-            className="w-full h-full object-cover opacity-50 grayscale-[0.3]" 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJ9JGs5G_XXTCZrLbsabir_e90wEUqCnIBKAUJKSByjsdGbzTHZDCOU93lyU0YyLbfMHl8FIz4lKeDiaCRs0Zpm5WGEgUUN8KRbPzajQDW2vvt0oGzGOcG6clYMk7UGhsMe-ppR0VqcH5HMgfWd2shHd4CfABOApnon-oHkVbH2_fOTjbdT44w5AuF9lFRqZ7QxzFuTgl0RSvC7WBtKkKFpyLzrty4Ve6DIDpDK5FQ7wT9nJoSGxloX44VlZ3PzpyHXNRmSD9Um2MB"
-          />
-          <div className="absolute inset-0 bg-linear-to-b from-surface-container-lowest/80 via-transparent to-surface-container-lowest/80"></div>
-          <div className="absolute inset-0 bg-black/20"></div>
-        </div>
+        <div className="absolute inset-0 z-0 bg-fixed bg-cover bg-center opacity-50 grayscale-[0.3]" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDJ9JGs5G_XXTCZrLbsabir_e90wEUqCnIBKAUJKSByjsdGbzTHZDCOU93lyU0YyLbfMHl8FIz4lKeDiaCRs0Zpm5WGEgUUN8KRbPzajQDW2vvt0oGzGOcG6clYMk7UGhsMe-ppR0VqcH5HMgfWd2shHd4CfABOApnon-oHkVbH2_fOTjbdT44w5AuF9lFRqZ7QxzFuTgl0RSvC7WBtKkKFpyLzrty4Ve6DIDpDK5FQ7wT9nJoSGxloX44VlZ3PzpyHXNRmSD9Um2MB')" }}></div>
+        <div className="absolute inset-0 z-0 bg-linear-to-b from-surface-container-lowest/80 via-transparent to-surface-container-lowest/80 pointer-events-none"></div>
+        <div className="absolute inset-0 z-0 bg-black/20 pointer-events-none"></div>
         <div className="container mx-auto px-6 relative z-10 flex flex-col items-center">
           <div className="max-w-4xl text-center">
             <span className="font-label text-primary uppercase tracking-[0.4em] text-[0.85rem] mb-6 block drop-shadow-md">Est. 2024 — Curated Excellence</span>
@@ -160,7 +154,7 @@ export const Men = () => {
       {/* Collection Workspace */}
       <section className="container mx-auto px-6 py-20 flex flex-col lg:flex-row gap-12">
         {/* Sidebar Filter */}
-        <aside className="w-full lg:w-64 shrink-0 space-y-12">
+        <aside className="w-full lg:w-64 shrink-0 space-y-12 sticky top-28 h-fit max-h-[calc(100vh-8rem)] overflow-y-auto hidden-scrollbar pb-6">
           <div>
             <h3 className="font-headline text-on-surface text-lg font-semibold mb-6 uppercase tracking-wider">Refine By</h3>
             
@@ -224,9 +218,9 @@ export const Men = () => {
         </aside>
 
         {/* Product Canvas */}
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           {/* Filter Section Controls */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12 border-b border-outline-variant/15 pb-8">
+          <div className="sticky top-20 z-30 bg-background/95 backdrop-blur-md pt-6 pb-6 border-b border-outline-variant/15 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12 -mx-2 px-2 shadow-sm shadow-background">
             <div className="flex flex-wrap gap-4">
               {['All Collection', 'Rings', 'Bracelets', 'Neck Chains'].map(cat => (
                 <button 
