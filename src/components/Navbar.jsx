@@ -39,7 +39,7 @@ export const Navbar = () => {
               <img 
                 src="/logo.png" 
                 alt="Sumit Jewellers" 
-                className="w-14 h-14 object-contain shadow-2xl drop-shadow-[0_0_8px_rgba(255,215,0,0.4)]"
+                className="w-14 h-14 object-cover rounded-full shadow-2xl drop-shadow-[0_0_8px_rgba(255,215,0,0.4)] border border-gold-500/20"
               />
             </div>
             <div className="flex flex-col">
