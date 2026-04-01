@@ -6,6 +6,8 @@ const ProductContext = createContext();
 
 const SYNC_CHANNEL = 'jewelry_product_sync';
 const STORAGE_KEY = 'jewelry_products';
+const VERSION_KEY = 'jewelry_version';
+const APP_VERSION = '1.1'; // Force reset if version matches
 
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
@@ -13,35 +15,18 @@ export const ProductProvider = ({ children }) => {
   const [lastUpdated, setLastUpdated] = useState(Date.now());
 
   // Initialize products with enhanced fields
-<<<<<<< HEAD
-  const initializeProducts = useCallback(() => {
-    const savedProducts = localStorage.getItem('jewelry_products');
-    const appVersion = '1.1'; // Increment this to force a reset
-    const savedVersion = localStorage.getItem('jewelry_version');
-
-    if (savedProducts && savedVersion === appVersion) {
-      setProducts(JSON.parse(savedProducts));
-    } else {
-      // Force refresh with new dummy data
-      localStorage.setItem('jewelry_version', appVersion);
-      // Enhance initial dummy products with requested fields
-      const enhanced = initialData.map(p => ({
-        ...p,
-        price: p.baseWeight * 6700, // Default calculation if not present
-        stock: Math.floor(Math.random() * 20) + 5,
-        sizes: ['Standard', 'Small', 'Large'],
-        karats: ['22k Gold', '18k Gold'],
-      }));
-      setProducts(enhanced);
-      localStorage.setItem('jewelry_products', JSON.stringify(enhanced));
-=======
   const initializeProducts = useCallback(async () => {
     setLoading(true);
     try {
       const savedProducts = localStorage.getItem(STORAGE_KEY);
-      if (savedProducts) {
+      const savedVersion = localStorage.getItem(VERSION_KEY);
+
+      if (savedProducts && savedVersion === APP_VERSION) {
         setProducts(JSON.parse(savedProducts));
       } else {
+        // Force refresh with new dummy data and set version
+        localStorage.setItem(VERSION_KEY, APP_VERSION);
+        
         // Enhance initial dummy products with requested fields
         const enhanced = initialData.map(p => ({
           ...p,
@@ -57,7 +42,6 @@ export const ProductProvider = ({ children }) => {
       console.error('Failed to initialize products:', error);
     } finally {
       setLoading(false);
->>>>>>> Authentication
     }
   }, []);
 
