@@ -21,8 +21,9 @@ export const Products = () => {
   let filteredProducts = products.filter(p => {
     let matchCat = selectedCategory === 'All' || p.category === selectedCategory;
     
-    // Use the price from the product object
-    let price = p.price;
+    // Use the price from the product object or calculate it
+    const goldRate = 6700;
+    let price = p.price || (p.baseWeight * goldRate);
     let matchPrice = true;
     if (priceRange === 'under-100k') matchPrice = price < 100000;
     if (priceRange === '100k-500k') matchPrice = price >= 100000 && price <= 500000;
@@ -30,8 +31,10 @@ export const Products = () => {
 
     let matchSearch = true;
     if (searchQuery) {
-      matchSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                    (p.description && p.description.toLowerCase().includes(searchQuery.toLowerCase()));
+      const searchLower = searchQuery.toLowerCase();
+      matchSearch = p.name.toLowerCase().includes(searchLower) || 
+                    (p.description && p.description.toLowerCase().includes(searchLower)) ||
+                    p.category.toLowerCase().includes(searchLower);
     }
 
     return matchCat && matchPrice && matchSearch;

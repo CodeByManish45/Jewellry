@@ -11,7 +11,7 @@ export const Footer = () => {
               <img 
                 src="/logo.png" 
                 alt="Sumit Jewellers" 
-                className="w-16 h-16 object-contain"
+                className="w-16 h-16 object-cover rounded-full border-2 border-gold-500/30"
               />
               <span className="font-serif text-3xl tracking-widest uppercase text-gold-500">Sumit Jewellers</span>
             </Link>

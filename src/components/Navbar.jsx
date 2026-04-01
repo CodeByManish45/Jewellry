@@ -15,9 +15,17 @@ export const Navbar = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/products?q=${encodeURIComponent(searchQuery)}`);
+      navigate(`/products?q=${encodeURIComponent(searchQuery.trim())}`);
       setIsSearchOpen(false);
       setSearchQuery('');
+    }
+  };
+
+  const handleSearchClick = () => {
+    if (isSearchOpen && searchQuery.trim()) {
+      handleSearch({ preventDefault: () => {} });
+    } else {
+      setIsSearchOpen(!isSearchOpen);
     }
   };
 
@@ -39,7 +47,7 @@ export const Navbar = () => {
               <img 
                 src="/logo.png" 
                 alt="Sumit Jewellers" 
-                className="w-14 h-14 object-contain shadow-2xl drop-shadow-[0_0_8px_rgba(255,215,0,0.4)]"
+                className="w-14 h-14 object-cover rounded-full shadow-2xl drop-shadow-[0_0_8px_rgba(255,215,0,0.4)] border border-gold-500/20"
               />
             </div>
             <div className="flex flex-col">
@@ -79,8 +87,9 @@ export const Navbar = () => {
                 </form>
               )}
               <button 
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                onClick={handleSearchClick}
                 className="text-slate-600 hover:text-gold-500 transition-colors relative z-10 p-1 rounded-full"
+                type="button"
               >
                 <Search className="w-5 h-5" />
               </button>
