@@ -23,23 +23,24 @@ export const Home = () => {
           />
           <div className="absolute inset-0 bg-slate-900/40"></div>
         </div>
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-serif text-white mb-6 uppercase tracking-widest leading-tight">
+        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
+          <span className="font-label text-gold-400 uppercase tracking-[0.5em] text-xs mb-6 block">EST. 2024 — LUXURY REDEFINED</span>
+          <h1 className="text-5xl md:text-8xl font-serif text-white mb-8 uppercase tracking-widest leading-[1.1]">
             Elegance <span className="text-gold-500 italic lowercase tracking-normal px-2">in every</span> Detail
           </h1>
-          <p className="text-lg md:text-xl text-beige-200 mb-10 font-light tracking-wide max-w-2xl mx-auto">
-            Discover our curated collection of fine jewelry, designed for moments that last a lifetime.
+          <p className="text-xl md:text-2xl text-white/80 mb-12 font-light tracking-widest max-w-3xl mx-auto leading-relaxed">
+            Discover our meticulously curated collection of fine hallmark jewelry, designed for the modern connoisseur of luxury.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link 
               to="/products"
-              className="bg-gold-500 hover:bg-gold-600 text-white px-8 py-3 tracking-widest uppercase text-sm transition-colors"
+              className="bg-gold-500 hover:bg-gold-600 text-white px-10 py-4 tracking-[0.3em] uppercase text-xs font-bold transition-all shadow-2xl hover:shadow-gold-500/20"
             >
               Shop Collection
             </Link>
             <Link 
               to="/wedding"
-              className="bg-transparent border border-white hover:bg-white/10 text-white px-8 py-3 tracking-widest uppercase text-sm transition-colors"
+              className="bg-transparent border border-white hover:bg-white hover:text-slate-900 text-white px-10 py-4 tracking-[0.3em] uppercase text-xs font-bold transition-all"
             >
               Bridal Exclusive
             </Link>
@@ -48,10 +49,11 @@ export const Home = () => {
       </section>
 
       {/* Categories Highlights */}
-      <section className="py-20 px-4 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-serif text-slate-900 mb-4 tracking-wider uppercase">Shop by Category</h2>
-          <div className="w-16 h-0.5 bg-gold-500 mx-auto"></div>
+      <section className="py-32 px-4 max-w-7xl mx-auto">
+        <div className="text-center mb-20">
+          <span className="font-label text-gold-600 uppercase tracking-[0.3em] text-[0.7rem] mb-4 block">Curated Selections</span>
+          <h2 className="text-4xl md:text-5xl font-serif text-slate-900 mb-6 tracking-wider uppercase">Shop by Category</h2>
+          <div className="w-24 h-0.5 bg-gold-500 mx-auto"></div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
