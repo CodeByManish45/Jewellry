@@ -101,6 +101,13 @@
   .premium-card {
     @apply transition-all duration-500 hover:shadow-2xl hover:-translate-y-1;
   }
+  .hidden-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hidden-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .material-symbols-outlined {
