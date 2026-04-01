@@ -4,6 +4,30 @@ import { categories } from '../data/products';
 import { useProducts } from '../context/ProductContext';
 import { ProductCard } from '../components/ProductCard';
 import { SlidersHorizontal } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, scale: 0.9, y: 20 },
+  visible: { 
+    opacity: 1, 
+    scale: 1, 
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.215, 0.610, 0.355, 1.000]
+    }
+  },
+};
 
 export const Products = () => {
   const [searchParams] = useSearchParams();
@@ -21,7 +45,6 @@ export const Products = () => {
   let filteredProducts = products.filter(p => {
     let matchCat = selectedCategory === 'All' || p.category === selectedCategory;
     
-    // Use the price from the product object or calculate it
     const goldRate = 6700;
     let price = p.price || (p.baseWeight * goldRate);
     let matchPrice = true;
@@ -48,21 +71,29 @@ export const Products = () => {
   }
 
   return (
-    <div className="bg-beige-100/30 min-h-screen pt-24 pb-20">
+    <div className="bg-beige-100/30 min-h-screen pt-24 pb-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="text-center mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-12"
+        >
           <h1 className="text-4xl font-serif text-slate-900 tracking-widest uppercase mb-4">
             {searchQuery ? `Search Results for "${searchQuery}"` : 'All Collections'}
           </h1>
           <div className="w-16 h-0.5 bg-gold-500 mx-auto"></div>
-        </div>
+        </motion.div>
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar / Filters */}
           <aside className="w-full lg:w-64 shrink-0">
-            <div className="bg-white p-6 border border-beige-200 sticky top-28">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="bg-white p-6 border border-beige-200 sticky top-28"
+            >
               <div className="flex items-center gap-2 mb-6 pb-4 border-b border-beige-200">
                 <SlidersHorizontal className="w-5 h-5 text-gold-600" />
                 <h3 className="font-serif text-lg tracking-widest uppercase text-slate-900">Filters</h3>
@@ -108,13 +139,17 @@ export const Products = () => {
                 </div>
               </div>
 
-            </div>
+            </motion.div>
           </aside>
 
           {/* Product Grid */}
           <div className="flex-1">
             {/* Sorting */}
-            <div className="flex justify-between items-center mb-6 bg-white p-4 border border-beige-200">
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex justify-between items-center mb-6 bg-white p-4 border border-beige-200"
+            >
               <span className="text-sm text-slate-500 tracking-widest uppercase">{filteredProducts.length} Products</span>
               <div className="flex items-center gap-3">
                 <span className="text-xs tracking-widest text-slate-500 uppercase">Sort By:</span>
@@ -128,17 +163,29 @@ export const Products = () => {
                   <option value="high-low">Price: High to Low</option>
                 </select>
               </div>
-            </div>
+            </motion.div>
 
             {/* Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+            <motion.div 
+              key={`${selectedCategory}-${searchQuery}-${priceRange}`} // Force re-animation on filter change
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12"
+            >
               {filteredProducts.map(product => (
-                <ProductCard key={product.id} product={product} />
+                <motion.div key={product.id} variants={itemVariants}>
+                  <ProductCard product={product} />
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {filteredProducts.length === 0 && (
-              <div className="text-center py-20 bg-white border border-beige-200">
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center py-20 bg-white border border-beige-200"
+              >
                 <p className="text-slate-500 font-serif text-xl">No products matched your criteria.</p>
                 <button 
                   onClick={() => { setSelectedCategory('All'); setPriceRange('All'); }}
@@ -146,7 +193,7 @@ export const Products = () => {
                 >
                   Clear Filters
                 </button>
-              </div>
+              </motion.div>
             )}
           </div>
         </div>

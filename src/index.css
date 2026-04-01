@@ -92,6 +92,13 @@
     box-shadow: 0 0 15px rgba(242, 202, 80, 0.3);
     border-color: #f2ca50;
   }
+  .hidden-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hidden-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .material-symbols-outlined {
