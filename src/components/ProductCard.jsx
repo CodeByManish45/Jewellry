@@ -11,7 +11,7 @@ export const ProductCard = ({ product }) => {
         <img 
           src={product.images[0]} 
           alt={product.name}
-          className="w-full h-full object-cover mix-blend-multiply transition-transform duration-700 group-hover:scale-110"
+          className="w-full h-full object-top object-cover mix-blend-multiply transition-transform duration-700 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-slate-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         <div className="absolute bottom-4 left-0 right-0 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-4 group-hover:translate-y-0">

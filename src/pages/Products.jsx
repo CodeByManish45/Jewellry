@@ -10,16 +10,19 @@ export const Products = () => {
   const searchQuery = searchParams.get('q') || '';
   const { products } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedType, setSelectedType] = useState('All');
   const [sortOrder, setSortOrder] = useState('featured');
   const [priceRange, setPriceRange] = useState('All');
 
   const handleCategoryChange = (e) => setSelectedCategory(e.target.value);
+  const handleTypeChange = (e) => setSelectedType(e.target.value);
   const handleSortChange = (e) => setSortOrder(e.target.value);
   const handlePriceChange = (e) => setPriceRange(e.target.value);
 
   // Filter Logic
   let filteredProducts = products.filter(p => {
     let matchCat = selectedCategory === 'All' || p.category === selectedCategory;
+    let matchType = selectedType === 'All' || p.type === selectedType;
     
     // Use the price from the product object or calculate it
     const goldRate = 6700;
@@ -34,10 +37,11 @@ export const Products = () => {
       const searchLower = searchQuery.toLowerCase();
       matchSearch = p.name.toLowerCase().includes(searchLower) || 
                     (p.description && p.description.toLowerCase().includes(searchLower)) ||
-                    p.category.toLowerCase().includes(searchLower);
+                    p.category.toLowerCase().includes(searchLower) ||
+                    (p.type && p.type.toLowerCase().includes(searchLower));
     }
 
-    return matchCat && matchPrice && matchSearch;
+    return matchCat && matchType && matchPrice && matchSearch;
   });
 
   // Sort Logic
@@ -85,7 +89,23 @@ export const Products = () => {
                 </div>
               </div>
 
-              {/* Price Filter */}
+              <div className="mb-6">
+                <h4 className="text-xs font-semibold tracking-widest uppercase text-slate-500 mb-4 block">Product Type</h4>
+                <div className="space-y-3">
+                  <label className="flex items-center gap-3 cursor-pointer group">
+                    <input type="radio" name="type" value="All" checked={selectedType === 'All'} onChange={handleTypeChange} className="accent-gold-500 w-4 h-4" />
+                    <span className="text-sm text-slate-700 group-hover:text-gold-600 transition-colors">All Types</span>
+                  </label>
+                  <label className="flex items-center gap-3 cursor-pointer group">
+                    <input type="radio" name="type" value="Nathiya" checked={selectedType === 'Nathiya'} onChange={handleTypeChange} className="accent-gold-500 w-4 h-4" />
+                    <span className="text-sm text-slate-700 group-hover:text-gold-600 transition-colors">Nathiya</span>
+                  </label>
+                  <label className="flex items-center gap-3 cursor-pointer group">
+                    <input type="radio" name="type" value="Locket" checked={selectedType === 'Locket'} onChange={handleTypeChange} className="accent-gold-500 w-4 h-4" />
+                    <span className="text-sm text-slate-700 group-hover:text-gold-600 transition-colors">Locket / Pendant</span>
+                  </label>
+                </div>
+              </div>
               <div className="mb-6">
                 <h4 className="text-xs font-semibold tracking-widest uppercase text-slate-500 mb-4 block">Price Range</h4>
                 <div className="space-y-3">
@@ -141,7 +161,7 @@ export const Products = () => {
               <div className="text-center py-20 bg-white border border-beige-200">
                 <p className="text-slate-500 font-serif text-xl">No products matched your criteria.</p>
                 <button 
-                  onClick={() => { setSelectedCategory('All'); setPriceRange('All'); }}
+                  onClick={() => { setSelectedCategory('All'); setSelectedType('All'); setPriceRange('All'); }}
                   className="mt-6 text-gold-600 tracking-widest uppercase text-sm border-b border-gold-600 pb-1 hover:text-gold-700 transition-colors"
                 >
                   Clear Filters

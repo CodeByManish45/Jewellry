@@ -12,9 +12,14 @@ export const ProductProvider = ({ children }) => {
   // Initialize products with enhanced fields
   const initializeProducts = useCallback(() => {
     const savedProducts = localStorage.getItem('jewelry_products');
-    if (savedProducts) {
+    const appVersion = '1.1'; // Increment this to force a reset
+    const savedVersion = localStorage.getItem('jewelry_version');
+
+    if (savedProducts && savedVersion === appVersion) {
       setProducts(JSON.parse(savedProducts));
     } else {
+      // Force refresh with new dummy data
+      localStorage.setItem('jewelry_version', appVersion);
       // Enhance initial dummy products with requested fields
       const enhanced = initialData.map(p => ({
         ...p,
