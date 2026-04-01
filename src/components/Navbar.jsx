@@ -34,11 +34,18 @@ export const Navbar = () => {
         <div className="flex justify-between items-center h-20">
 
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full border border-gold-500 bg-gold-50 flex items-center justify-center">
-              <span className="text-gold-600 font-serif font-bold text-xl leading-none">A</span>
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="relative group-hover:scale-105 transition-transform duration-300">
+              <img 
+                src="/logo.png" 
+                alt="Sumit Jewellers" 
+                className="w-14 h-14 object-contain shadow-2xl drop-shadow-[0_0_8px_rgba(255,215,0,0.4)]"
+              />
             </div>
-            <span className="font-serif text-2xl tracking-widest text-slate-900 uppercase">Aura</span>
+            <div className="flex flex-col">
+              <span className="font-serif text-2xl tracking-widest text-slate-900 uppercase leading-tight font-semibold">Sumit Jewellers</span>
+              <span className="text-[9px] tracking-[0.2em] text-gold-600 uppercase font-medium">Fine Hallmark Jewelry</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}

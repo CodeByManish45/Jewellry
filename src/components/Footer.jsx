@@ -7,11 +7,13 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           
           <div className="space-y-4">
-            <Link to="/" className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 rounded-full border border-gold-500 flex items-center justify-center">
-                <span className="text-gold-500 font-serif font-bold text-2xl leading-none">A</span>
-              </div>
-              <span className="font-serif text-3xl tracking-widest uppercase text-white">Aura</span>
+            <Link to="/" className="flex items-center gap-3 mb-6">
+              <img 
+                src="/logo.png" 
+                alt="Sumit Jewellers" 
+                className="w-16 h-16 object-contain"
+              />
+              <span className="font-serif text-3xl tracking-widest uppercase text-gold-500">Sumit Jewellers</span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed">
               Exquisite craftsmanship and timeless designs. Discover our collection of premium jewelry tailored for your every special moment.
@@ -41,16 +43,16 @@ export const Footer = () => {
           <div>
             <h4 className="font-serif text-lg tracking-wider mb-6 text-gold-400">Contact Us</h4>
             <ul className="space-y-3 text-sm text-slate-400">
-              <li>Email: contact@aurajewelry.com</li>
-              <li>Phone: +1 (800) 123-4567</li>
-              <li>Mon - Fri | 9 AM - 6 PM EST</li>
+              <li>Email: contact@sumitjewellers.com</li>
+              <li>Phone: +91 98765 43210</li>
+              <li>Mon - Sat | 10 AM - 8 PM IST</li>
             </ul>
           </div>
 
         </div>
 
         <div className="border-t border-slate-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500 gap-4">
-          <p>&copy; {new Date().getFullYear()} Aura Jewelry. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Sumit Jewellers. All rights reserved.</p>
           <div className="flex gap-4">
              <Link to="/admin" className="hover:text-gold-400 transition-colors">Admin Login</Link>
           </div>
